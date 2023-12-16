@@ -1,0 +1,158 @@
+= C# - ASP.NET Core Web API
+
+== Overview
+Hello there! 👋 Welcome to my ASP.NET Core Web API project. 
+
+This project is built using ASP.NET Core, a powerful framework for building cross-platform, high-performance web applications. The main focus here is on creating a robust Web API that can handle various requests and serve data efficiently.
+
+Let's get startet!
+
+== Dependencies
+* Linux - Ubuntu 22.04
+* .NET 6.0.124
+
+== Installation
+Installing the Software development kit:
+
+[source,shell]
+----
+sudo apt-get update && sudo apt-get install -y dotnet-sdk-6.0
+    
+# Confirming the correct version 
+dotnet --list-sdks
+dotnet --list-runtimes
+----
+
+== Getting Startet
+
+For those eager to know, this application was created with
+[source,shell]
+----
+# Change directory to project folder
+dotnet new webapi -o ProjectName -f net6.0
+----
+
+Start by installing the dependencies and buildung/debugging the project
+[source,shell]
+----
+# Change directory to project folder
+dotnet build
+----
+
+After that, go ahead and run your project using the following command:
+[source,shell]
+----
+dotnet run
+----
+
+And remember, the used ports will be displayed!
+
+
+== Testing the REST API
+
+First, take a look in your browser:
+
+link:https://localhost:{PORT}/frogeworld[https://localhost:{PORT}/frogeworld]
+
+You can also use Swagger for testing:
+
+link:https://localhost:{PORT}/Swagger/index.html[https://localhost:{PORT}/Swagger/index.html]
+
+
+To view results, you can install the .NET HTTP REPL command-line tool:
+[source,shell]
+----
+dotnet tool install -g Microsoft.dotnet-httprepl
+----
+
+If the HttpRepl tool warns "Unable to find an OpenAPI description", the most likely cause is an untrusted development certificate. HttpRepl requires a trusted connection. Before you can continue, you must configure your system to trust the dev certificate with dotnet dev-certs https --trust
+
+Following steps might help in this case!
+[source,shell]
+----
+dotnet dev-certs https
+sudo -E dotnet dev-certs https -ep /usr/local/share/ca-certificates/aspnet/https.crt --format PEM
+sudo update-ca-certificates
+----
+
+You can find more information on trusting the ASP.NET Core development certificate on this link:
+link:https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-7.0&tabs=visual-studio%2Clinux-ubuntu#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos[Microsoft Helping Site]
+
+Now, you can proceed to use HttpRepl:
+[source,shell]
+----
+httprepl https://localhost:{PORT}
+----
+
+
+== Unit Tests
+
+TEXT
+
+[source,shell]
+----
+dotnet test
+----
+
+TEXT
+
+== Docker
+Wanna implement:
+
+[source,shell]
+----
+docker build -t frogworld:1.0 .
+----
+
+== Curl
+You can als use *curl* commands for CRUD operations:
+
+=== GET
+[source,shell]
+----
+curl -X 'GET' \
+  'https://localhost:7223/Frog' \
+  -H 'accept: text/plain'
+
+curl -X 'GET' \
+  'https://localhost:7223/Frog/2' \
+  -H 'accept: text/plain'
+----
+
+=== POST
+[source,shell]
+----
+curl -X 'POST' \
+  'https://localhost:7223/Frog' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 0,
+  "name": "Froggy",
+  "screamingCroak": true
+}'
+----
+
+=== PUT
+[source,shell]
+----
+curl -X 'PUT' \
+  'https://localhost:7223/Frog/3' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 3,
+  "name": "Froggy",
+  "screamingCroak": false
+}'
+----
+
+=== DELETE
+[source,shell]
+----
+curl -X 'DELETE' \
+  'https://localhost:7223/Frog/3' \
+  -H 'accept: */*'
+----
+
+Tough luck! 😊
