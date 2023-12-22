@@ -10,14 +10,14 @@ public static class FrogService
     {
         Frogs = new List<Frog>
         {
-            new Frog { Id = 1, Name = "Big Frog", ScreamingCroak = true },
-            new Frog { Id = 2, Name = "Fire Frog", ScreamingCroak = false }
+            new() { Id = 1, Name = "Big Frog", ScreamingCroak = true },
+            new() { Id = 2, Name = "Fire Frog", ScreamingCroak = false }
         };
     }
 
     public static List<Frog> GetAll() => Frogs;
 
-    public static Frog? Get(int id) => Frogs.FirstOrDefault(p => p.Id == id);
+    public static Frog? Get(int id) => Frogs.FirstOrDefault(f => f.Id == id);
 
     public static void Add(Frog frog)
     {
@@ -25,21 +25,21 @@ public static class FrogService
         Frogs.Add(frog);
     }
 
-    public static void Delete(int id)
-    {
-        var frog = Get(id);
-        if(frog is null)
-            return;
-
-        Frogs.Remove(frog);
-    }
-
     public static void Update(Frog frog)
     {
         var index = Frogs.FindIndex(p => p.Id == frog.Id);
-        if(index == -1)
+        if (index == -1)
             return;
 
         Frogs[index] = frog;
+    }
+
+    public static void Delete(int id)
+    {
+        var frog = Get(id);
+        if (frog is null)
+            return;
+
+        Frogs.Remove(frog);
     }
 }

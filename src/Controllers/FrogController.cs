@@ -20,7 +20,7 @@ public class FrogController : ControllerBase
     {
         var frog = FrogService.Get(id);
 
-        if(frog == null)
+        if (frog == null)
             return NotFound();
 
         return frog;
@@ -28,7 +28,7 @@ public class FrogController : ControllerBase
 
     [HttpPost]
     public IActionResult Create(Frog frog)
-    {            
+    {
         FrogService.Add(frog);
         return CreatedAtAction(nameof(Get), new { id = frog.Id }, frog);
     }
@@ -37,14 +37,14 @@ public class FrogController : ControllerBase
     public IActionResult Update(int id, Frog frog)
     {
         if (id != frog.Id)
-        return BadRequest();
-           
+            return BadRequest();
+
         var existingFrog = FrogService.Get(id);
-        if(existingFrog is null)
+        if (existingFrog is null)
             return NotFound();
-    
-        FrogService.Update(frog);           
-    
+
+        FrogService.Update(frog);
+
         return NoContent();
     }
 
@@ -52,12 +52,12 @@ public class FrogController : ControllerBase
     public IActionResult Delete(int id)
     {
         var frog = FrogService.Get(id);
-   
+
         if (frog is null)
             return NotFound();
-        
+
         FrogService.Delete(id);
-    
+
         return NoContent();
     }
 }
